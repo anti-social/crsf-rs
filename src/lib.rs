@@ -174,6 +174,33 @@ impl<'a> RawPacket<'a> {
     pub fn addr(&self) -> PacketAddress {
         self.addr
     }
+
+    pub fn to_owned(&self) -> OwnedRawPacket {
+        OwnedRawPacket {
+            addr: self.addr,
+            buf: self.buf.clone(),
+            len: self.len,
+        }
+    }
+}
+
+/// Represents a raw packet (not parsed)
+#[derive(Clone, Copy, Debug)]
+pub struct OwnedRawPacket {
+    addr: PacketAddress,
+    buf: [u8; Packet::MAX_LENGTH],
+    len: usize,
+}
+
+impl OwnedRawPacket {
+    /// Returns the packet data as a slice
+    pub fn as_slice(&self) -> &[u8] {
+        &self.buf[..self.len]
+    }
+
+    pub fn addr(&self) -> PacketAddress {
+        self.addr
+    }
 }
 
 /// Represents a packet payload data
