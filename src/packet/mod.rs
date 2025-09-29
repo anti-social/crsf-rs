@@ -29,7 +29,7 @@ impl RawPacket<'_> {
 
 /// Enum of implemented packets.
 #[non_exhaustive]
-#[derive(Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
 pub enum Packet {
     LinkStatistics(LinkStatistics),
@@ -44,7 +44,7 @@ pub enum Packet {
 
 /// Enum of implemented extended packets.
 #[non_exhaustive]
-#[derive(Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
 pub enum ExtendedPacket {
     DevicePing(DevicePing),
