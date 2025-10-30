@@ -68,7 +68,7 @@ impl Parser {
     }
 
     /// Consumes a byte and returns a raw (not parsed) packet if one is available.
-    pub fn push_byte_raw(&mut self, byte: u8) -> Option<Result<RawPacket, ParseError>> {
+    pub fn push_byte_raw<'a>(&'a mut self, byte: u8) -> Option<Result<RawPacket<'a>, ParseError>> {
         match self.state {
             State::AwaitingSync => {
                 if self.config.sync.contains(&byte) {
