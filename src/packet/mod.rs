@@ -18,7 +18,7 @@ use num_enum::TryFromPrimitive;
 use snafu::Snafu;
 
 /// Wrapper struct for the raw data of a packet with valid length and checksum.
-pub struct RawPacket<'a>(pub(crate) &'a [u8]);
+pub struct RawPacket<'a>(pub &'a [u8]);
 
 impl RawPacket<'_> {
     /// Returns the inner data
