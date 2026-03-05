@@ -44,8 +44,8 @@ impl Payload for LinkStatistics {
         LEN
     }
 
-    fn typ(&self) -> PacketType {
-        PacketType::LinkStatistics
+    fn typ(&self) -> u8 {
+        PacketType::LinkStatistics as u8
     }
 
     fn encode(&self, data: &mut [u8]) {

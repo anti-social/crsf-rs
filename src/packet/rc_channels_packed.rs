@@ -55,8 +55,8 @@ impl Payload for RcChannelsPacked {
         LEN
     }
 
-    fn typ(&self) -> PacketType {
-        PacketType::RcChannelsPacked
+    fn typ(&self) -> u8 {
+        PacketType::RcChannelsPacked as u8
     }
 
     fn encode(&self, data: &mut [u8]) {

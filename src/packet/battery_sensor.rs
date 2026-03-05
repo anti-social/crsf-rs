@@ -36,8 +36,8 @@ impl Payload for BatterySensor {
         LEN
     }
 
-    fn typ(&self) -> PacketType {
-        PacketType::BatterySensor
+    fn typ(&self) -> u8 {
+        PacketType::BatterySensor as u8
     }
 
     fn encode(&self, data: &mut [u8]) {

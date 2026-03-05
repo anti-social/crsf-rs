@@ -160,7 +160,7 @@ pub trait Payload {
     fn len(&self) -> usize;
 
     /// Returns the type of the packet.
-    fn typ(&self) -> PacketType;
+    fn typ(&self) -> u8;
 
     /// Encodes the payload into a mutable slice. This does not include the `sync`, `len`, `type`, or
     /// `crc` bytes. Assumes the length of the buffer to be at least larger than the payload size.
@@ -186,7 +186,7 @@ pub trait PayloadDump: Payload {
 
         buf[0] = sync_byte;
         buf[1] = payload_len as u8 + 2;
-        buf[2] = self.typ() as u8;
+        buf[2] = self.typ();
         self.encode(&mut buf[3..total_len - 1]);
         buf[total_len - 1] = CRC8.checksum(&buf[2..total_len - 1]);
 
@@ -224,7 +224,7 @@ pub trait ExtendedPayloadDump: Payload {
 
         buf[0] = sync_byte;
         buf[1] = payload_len as u8 + 4;
-        buf[2] = self.typ() as u8;
+        buf[2] = self.typ();
         buf[3] = dst as u8;
         buf[4] = src as u8;
         self.encode(&mut buf[5..total_len - 1]);

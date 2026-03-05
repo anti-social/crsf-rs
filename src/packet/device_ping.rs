@@ -10,8 +10,8 @@ impl Payload for DevicePing {
         0
     }
 
-    fn typ(&self) -> PacketType {
-        PacketType::DevicePing
+    fn typ(&self) -> u8 {
+        PacketType::DevicePing as u8
     }
 
     fn encode(&self, _data: &mut [u8]) {}
