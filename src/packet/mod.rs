@@ -52,7 +52,7 @@ pub enum ExtendedPacket {
 
 impl Packet {
     /// Parses a `RawPacket`
-    pub fn parse(raw_packet: RawPacket<'_>) -> Result<Self, ParseError> {
+    pub fn parse(raw_packet: &RawPacket<'_>) -> Result<Self, ParseError> {
         let data = raw_packet.data();
 
         let typ = if let Ok(typ) = PacketType::try_from_primitive(data[2]) {
@@ -262,7 +262,7 @@ mod tests {
 
         assert_eq!(&buf[..len], expected_data.as_slice());
 
-        let result = Packet::parse(RawPacket(&buf[..len]));
+        let result = Packet::parse(&RawPacket(&buf[..len]));
         assert_eq!(result, Ok(Packet::RcChannelsPacked(orig)));
     }
 
@@ -290,7 +290,7 @@ mod tests {
 
         assert_eq!(&buf[..len], expected_data.as_slice());
 
-        let result = Packet::parse(RawPacket(&buf[..len]));
+        let result = Packet::parse(&RawPacket(&buf[..len]));
         assert_eq!(result, Ok(Packet::LinkStatistics(orig)));
     }
 
@@ -313,7 +313,7 @@ mod tests {
 
         assert_eq!(&buf[..len], expected_data.as_slice());
 
-        let result = Packet::parse(RawPacket(&buf[..len]));
+        let result = Packet::parse(&RawPacket(&buf[..len]));
         assert_eq!(
             result,
             Ok(Packet::Extended {

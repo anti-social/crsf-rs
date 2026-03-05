@@ -64,7 +64,7 @@ impl Parser {
     /// Consumes a byte and returns a parsed packet if one is available.
     pub fn push_byte(&mut self, byte: u8) -> Option<Result<Packet, ParseError>> {
         self.push_byte_raw(byte)
-            .map(|res| res.and_then(|raw_packet| Packet::parse(raw_packet)))
+            .map(|res| res.and_then(|raw_packet| Packet::parse(&raw_packet)))
     }
 
     /// Consumes a byte and returns a raw (not parsed) packet if one is available.
@@ -126,7 +126,7 @@ impl Parser {
     ) -> Option<(Result<Packet, ParseError>, &'b [u8])> {
         self.push_bytes_raw(data).map(|(res, remaining)| {
             (
-                res.and_then(|raw_packet| Packet::parse(raw_packet)),
+                res.and_then(|raw_packet| Packet::parse(&raw_packet)),
                 remaining,
             )
         })
@@ -282,7 +282,7 @@ mod tests {
             let result = parser.push_bytes_raw(&[239]).expect("result expected");
 
             let raw_packet = result.0.expect("raw packet expected");
-            let packet = Packet::parse(raw_packet).expect("packet expected");
+            let packet = Packet::parse(&raw_packet).expect("packet expected");
 
             match packet {
                 Packet::RcChannelsPacked(ch) => {
@@ -351,7 +351,7 @@ mod tests {
             let result = parser.push_byte_raw(239).expect("result expected");
 
             let raw_packet = result.expect("raw packet expected");
-            let packet = Packet::parse(raw_packet).expect("packet expected");
+            let packet = Packet::parse(&raw_packet).expect("packet expected");
 
             match packet {
                 Packet::RcChannelsPacked(ch) => {
@@ -387,7 +387,7 @@ mod tests {
             let result = parser.push_byte_raw(239).expect("result expected");
 
             let raw_packet = result.expect("raw packet expected");
-            let packet = Packet::parse(raw_packet).expect("packet expected");
+            let packet = Packet::parse(&raw_packet).expect("packet expected");
 
             match packet {
                 Packet::RcChannelsPacked(ch) => {
